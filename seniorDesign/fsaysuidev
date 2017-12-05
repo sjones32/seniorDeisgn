@@ -1,0 +1,27 @@
+! /bin/sh
+### BEGIN INIT INFO
+# Provides: fsaysuiinput
+# Required-Start: $sudo
+# Required-Stop:
+# X-Start-Before: not applicable
+# Default-Start: 2 3 4 5
+# Default-Stop:
+# Short-Description: Provides a uinput device for pi's without a keyboard
+# Description: Provide a uinput device for receiving keyboard input without having a physical keyboard connected to the pi
+### END INIT INFO
+N=/etc/init.d/fsaysuidev
+set -e
+case "$1" in
+start
+# make sure privileges don't persist across reboots
+echo "FSays input is starting in background..."
+sudo /home/faketst/uinKeyboard&
+;;
+stop|reload|restart|force-reload|status
+;;
+*
+echo "Usage: $N {start|stop|restart|force-reload|status}" >&2
+exit 1
+;;
+esac
+exit 0
